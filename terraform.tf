@@ -29,6 +29,11 @@ provider "cloudflare" {
 // }
 
 
+variable "vm_image" {
+  default = "debian-10-x64"
+}
+
+
 data "digitalocean_ssh_key" "ondrejsika" {
   name = "ondrejsika"
 }
@@ -36,7 +41,7 @@ data "digitalocean_ssh_key" "ondrejsika" {
 resource "digitalocean_droplet" "master" {
   count = var.master_count
 
-  image  = "docker-18-04"
+  image  = var.vm_image
   name   = "m${count.index}.bm"
   region = "fra1"
   size   = "s-2vcpu-2gb"
@@ -59,7 +64,7 @@ resource "cloudflare_record" "master" {
 resource "digitalocean_droplet" "node" {
   count = var.node_count
 
-  image  = "docker-18-04"
+  image  = var.vm_image
   name   = "n${count.index}.bm"
   region = "fra1"
   size   = "s-2vcpu-2gb"
