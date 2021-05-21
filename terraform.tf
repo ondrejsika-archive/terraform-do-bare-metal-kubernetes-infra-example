@@ -30,7 +30,7 @@ provider "cloudflare" {
 
 
 variable "vm_image" {
-  default = "debian-10-x64"
+  default = "docker-18-04"
 }
 
 
